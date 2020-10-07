@@ -1,20 +1,40 @@
 <template>
   <div>
     <v-app-bar color="#FFAB40" dark>
+      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-card-title>Restaurante en Casa</v-card-title>
-      <!-- <template>
-        <v-tabs centered>
-          <v-tab>Home</v-tab>
-          <v-tab>Restaurantes</v-tab>
-          <v-tab>Tab 3</v-tab>
-        </v-tabs>
-      </template> -->
     </v-app-bar>
+    <v-navigation-drawer v-model="drawer" absolute temporary>
+      <v-list nav dense>
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Account</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
   </div>
 </template>
 
 <script>
 export default {
   name: "Navbar",
+  data: () => ({
+    drawer: false,
+    group: null,
+  }),
 };
 </script>
