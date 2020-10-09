@@ -32,8 +32,8 @@
         <v-col cols="12" xl="11" lg="9" sm="7">
           <GmapMap
             :center="center"
-            :zoom="12"
-            map-type-id="terrain"
+            :zoom="13"
+            map-type-id="roadmap"
             style="max-width: 1400px; height: 500px"
           >
             <GmapMarker
@@ -55,9 +55,17 @@
 export default {
   name: "Restaurantes",
   components: {},
+  mounted() {
+    this.$getLocation()
+      .then(coordinates => {
+        console.log(coordinates);
+        this.center.lat=coordinates.lat
+        this.center.lng=coordinates.lng
+      })
+  },
 
   data: () => ({
-    center: { lat: 41.40338, lng: 2.17403 },
+    center: { lat: 6.158707, lng: -75.5887989 },
     items: [
       {
         id: 0,
@@ -65,7 +73,7 @@ export default {
         address: "en la esquina 0",
         image: "",
         category: "asia",
-        position: { lat: 41.40338, lng: 2.17403 },
+        position: { lat: 6.155707, lng: -75.5887989 },
       },
       {
         id: 2,
@@ -73,7 +81,7 @@ export default {
         address: "en la esquina 1",
         image: "",
         category: "tipicos",
-        position: { lat: 41.41338, lng: 2.18403 },
+        position: { lat: 6.159707, lng: -75.5887989 },
       },
       {
         id: 3,
@@ -81,7 +89,7 @@ export default {
         address: "en la esquina 2",
         image: "",
         category: "mexicana",
-        position: { lat: 41.42338, lng: 2.19403 },
+        position: { lat: 6.157707, lng: -75.5887989 },
       },
     ],
   }),

@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify';
 import * as VueGoogleMaps from 'vue2-google-maps'
+import VueGeolocation from 'vue-browser-geolocation';
+
+Vue.use(VueGeolocation);
 
 Vue.use(VueGoogleMaps, {
   load: {
