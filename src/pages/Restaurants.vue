@@ -13,7 +13,7 @@
             <v-list>
               <v-subheader>Lista</v-subheader>
               <v-list-item-group color="primary">
-                <v-list-item :key="i.id" v-for="i in items">
+                <v-list-item :key="i.id" v-for="i in restaurantsList">
                   <v-list-item-content>
                     <v-list-item-title v-text="i.name"></v-list-item-title>
                     <v-list-item-subtitle
@@ -38,11 +38,11 @@
           >
             <GmapMarker
               :key="i.id"
-              v-for="i in items"
+              v-for="i in restaurantsList"
               :position="i.position"
               :clickable="true"
               :draggable="true"
-              @click="center = i.position"
+              @click="openInfoWindow(i)"
             />
           </GmapMap>
         </v-col>
@@ -52,46 +52,36 @@
 </template>
 
 <script>
+import restaurantServices from "../services/restaurants.services";
+
 export default {
-  name: "Restaurantes",
+  name: "Restaurants",
   components: {},
-  mounted() {
-    this.$getLocation()
-      .then(coordinates => {
-        console.log(coordinates);
-        this.center.lat=coordinates.lat
-        this.center.lng=coordinates.lng
-      })
+  async beforeCreate() {
+    try {
+      let coordinates = await this.$getLocation();
+      this.center.lat = coordinates.lat;
+      this.center.lng = coordinates.lng;
+    } catch (error) {
+      this.center = { lat: 6.158707, lng: -75.5887989 };
+    }
+    try {
+      let items = await restaurantServices.getRestaurants();
+      this.restaurantsList = items.data;
+    } catch (error) {
+      console.log("Fallo retornando restaurantes");
+    }
   },
+  methods: {},
 
   data: () => ({
+    infoWindow: {
+      position: { lat: 0, lng: 0 },
+      open: false,
+      template: "",
+    },
     center: { lat: 6.158707, lng: -75.5887989 },
-    items: [
-      {
-        id: 0,
-        name: "caseritos el budu 0",
-        address: "en la esquina 0",
-        image: "",
-        category: "asia",
-        position: { lat: 6.155707, lng: -75.5887989 },
-      },
-      {
-        id: 2,
-        name: "caseritos el budu 1",
-        address: "en la esquina 1",
-        image: "",
-        category: "tipicos",
-        position: { lat: 6.159707, lng: -75.5887989 },
-      },
-      {
-        id: 3,
-        name: "caseritos el budu 2",
-        address: "en la esquina 2",
-        image: "",
-        category: "mexicana",
-        position: { lat: 6.157707, lng: -75.5887989 },
-      },
-    ],
+    restaurantsList: [],
   }),
 };
 </script>

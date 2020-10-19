@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/pages/Login';
 import Home from '@/pages/Home';
-import Restaurantes from '@/pages/Restaurantes';
+import Restaurants from '@/pages/Restaurants';
 
 
 Vue.use(Router);
@@ -11,13 +11,13 @@ export default new Router({
     routes: [
       {
         path: '*',
-        redirect: '/Restaurantes',
+        redirect: '/Restaurants',
 
         
     },
     {
         path: '/',
-        redirect: '/Restaurantes',
+        redirect: '/Restaurants',
 
     },
     {
@@ -31,9 +31,9 @@ export default new Router({
       component: Home
   },
   {
-    path: '/Restaurantes',
-    name: 'Restaurantes',
-    component: Restaurantes
+    path: '/Restaurants',
+    name: 'Restaurants',
+    component: Restaurants
 },
     ]
   })
