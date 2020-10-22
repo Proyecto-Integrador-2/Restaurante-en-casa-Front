@@ -20,7 +20,6 @@ export default {
     try {
       let items = await restaurantServices.getRestaurantById(this.id);
       this.restaurantDetail = items.data;
-      console.log(this.restaurantDetail)
     } catch (error) {
       console.log("Fallo retornando el restaurante");
       console.log(error)

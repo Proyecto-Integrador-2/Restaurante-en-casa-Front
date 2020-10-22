@@ -14,9 +14,11 @@
           label="Password"
           outlined
         ></v-text-field>
-        <div class="d-flex justify-center flex-column">
-          <v-btn @click="home" elevation="4" color="orange accent-2" dark large>Submit</v-btn>
-        </div>
+        <v-btn @click="home" color="orange accent-2" dark large>Submit</v-btn>
+        <p></p>
+        <v-btn @click="register" color="orange accent-2" dark large
+          >Register</v-btn
+        >
       </v-container>
     </v-card>
   </div>
@@ -31,6 +33,9 @@ export default {
   methods: {
     home() {
       this.$router.push({ name: "Home" });
+    },
+    register() {
+      this.$router.push({ name: "Register" });
     },
   },
 };

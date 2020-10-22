@@ -10,11 +10,11 @@
           v-model="group"
           active-class="deep-purple--text text--accent-4"
         >
-          <v-list-item>
+          <v-list-item @click="pageRestaurants()">
             <v-list-item-icon>
               <v-icon>mdi-home</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Home</v-list-item-title>
+            <v-list-item-title>Restaurantes</v-list-item-title>
           </v-list-item>
 
           <v-list-item>
@@ -36,5 +36,14 @@ export default {
     drawer: false,
     group: null,
   }),
+  methods: {
+    pageRestaurants: function () {
+      if (this.$router.history.current.name != "Restaurants") {
+        this.$router.push({
+          name: "Restaurants",
+        });
+      }
+    },
+  },
 };
 </script>

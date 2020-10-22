@@ -4,6 +4,7 @@ import Login from '@/pages/Login';
 import Home from '@/pages/Home';
 import Restaurants from '@/pages/Restaurants';
 import RestaurantDetails from '@/pages/RestaurantDetails';
+import Register from '@/pages/Register';
 
 
 Vue.use(Router);
@@ -40,6 +41,11 @@ export default new Router({
       path: '/RestaurantDetails/:id',
       name: 'RestaurantDetails',
       component: RestaurantDetails
+    },
+    {
+      path: '/Register',
+      name: 'Register',
+      component: Register
     },
   ]
 })
