@@ -127,7 +127,6 @@ export default {
           <div class="content">
             ${i.description}
             <br>
-            <button onclick="detailsWindow(i.id)" style="padding: 2px ;margin: 4px; border-style: solid; background-color: #e7e7e7; color: black">Detalles</button>
           </div>
         </div>
       </div>`;
