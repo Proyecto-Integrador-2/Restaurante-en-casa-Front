@@ -3,7 +3,7 @@
     <v-card
       elevation="6"
       class="mx-auto pa-5"
-      max-width="1400"
+      max-width="900"
       min-height="500"
     >
       <v-card-title class="justify-center">Registro</v-card-title>
