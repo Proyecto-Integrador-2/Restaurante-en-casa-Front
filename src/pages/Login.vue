@@ -2,7 +2,7 @@
   <div class="Login pa-5">
     <v-card elevation="6" class="mx-auto pa-5" max-width="900" min-height="500">
       <v-card-title class="justify-center">Login</v-card-title>
-      <v-container class="d-flex justify-center flex-column">
+      <v-container class="d-flex flex-column">
         <v-text-field v-model="email" label="Email" outlined></v-text-field>
         <v-text-field
           v-model="password"
@@ -11,24 +11,21 @@
           outlined
         ></v-text-field>
       </v-container>
-      <v-container class="d-flex flex-column" align-center>
+      <v-container class="d-flex flex-column" align-end>
         <v-btn
           class="justify-center"
-          style="max-width: 300px"
+          style="min-width: 150px"
           color="orange accent-2"
           @click="submit"
           dark
-          large
           >Submit</v-btn
         >
         <p></p>
+        
         <v-btn
           class="justify-center"
-          style="max-width: 300px"
+          style="min-width: 150px"
           @click="register"
-          color="orange accent-2"
-          dark
-          large
           >Register</v-btn
         >
       </v-container>

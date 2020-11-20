@@ -5,6 +5,7 @@ import Home from '@/pages/Home';
 import Restaurants from '@/pages/Restaurants';
 import RestaurantDetails from '@/pages/RestaurantDetails';
 import Register from '@/pages/Register';
+import Account from '@/pages/Account';
 
 
 Vue.use(Router);
@@ -46,6 +47,11 @@ export default new Router({
       path: '/Register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/Account',
+      name: 'Account',
+      component: Account
     },
   ]
 })

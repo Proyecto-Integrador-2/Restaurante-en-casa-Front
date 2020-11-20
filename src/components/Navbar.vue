@@ -57,7 +57,10 @@ export default {
           this.$router.push({ name: "Login" });
         }
       } else {
-        console.log("esta logeado");
+        if (this.$router.history.current.name != "Account") {
+          this.$router.push({ name: "Account" });
+          console.log("esta logeado");
+        }
       }
     },
     logout() {
