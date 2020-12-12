@@ -1,11 +1,5 @@
 <template>
-  <div>
-    <v-card
-      elevation="6"
-      class="mx-auto ma-2 pa-2 mt-4"
-      max-width="1400"
-      min-height="500"
-    >
+  <div style="margin:auto" class="ma-3">
       <v-row>
         <v-col>
           <v-card class="ma-2 pa-2" height="500px">
@@ -64,7 +58,7 @@
           </GmapMap>
         </v-col>
       </v-row>
-    </v-card>
+
   </div>
 </template>
 

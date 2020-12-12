@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar color="#FFAB40" dark>
+    <v-app-bar color="#7CB342" dark>
       <v-img
         src="../assets/image2.png"
         max-height="300"

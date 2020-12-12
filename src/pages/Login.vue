@@ -15,7 +15,7 @@
         <v-btn
           class="justify-center"
           style="min-width: 150px"
-          color="orange accent-2"
+          color="#7CB342"
           @click="submit"
           dark
           >Submit</v-btn

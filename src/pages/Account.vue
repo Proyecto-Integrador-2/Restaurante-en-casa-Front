@@ -1,11 +1,6 @@
 <template>
-  <div>
-    <v-card
-      elevation="6"
-      class="mx-auto ma-2 pa-2 mt-4"
-      max-width="1400"
-      min-height="500"
-    >
+  <div style="margin:auto" class="ma-3 mt-4">
+
       <v-card-title class="justify-center">Mi Cuenta</v-card-title>
       <v-row>
         <v-col>
@@ -53,7 +48,7 @@
           </v-card>
         </v-col>
       </v-row>
-    </v-card>
+
   </div>
 </template>
 
