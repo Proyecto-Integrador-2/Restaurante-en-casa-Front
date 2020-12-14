@@ -5,7 +5,6 @@
           <v-card class="ma-2 pa-2" height="500px">
             <h1>Restaurantes</h1>
             <v-list style="max-height: 430px" class="overflow-y-auto">
-              <v-subheader>Lista</v-subheader>
               <v-list-item-group color="primary">
                 <v-list-item
                   :key="i.id"
@@ -64,6 +63,8 @@
 
 <script>
 import restaurantServices from "../services/restaurants.services";
+
+
 
 export default {
   name: "Restaurants",

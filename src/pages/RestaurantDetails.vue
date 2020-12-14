@@ -5,6 +5,7 @@
         <v-card class="pa-4">
           <v-col>
             <h1>{{ this.restaurantDetail.name }}</h1>
+            <br>
             <h3 style="font-weight: normal">
               {{ this.restaurantDetail.description }}
             </h3>
@@ -16,15 +17,26 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card class="pa-4"> 
-          <h1>AQUI BOTON PARA RESERVAR Y QUE TALES</h1>
+        <v-card class="pa-4">
+          <h1>Reservar</h1>
+          <br />
+          <h3>Total a pagar:</h3>
+          50.000 COP
+          <br />
+          <v-btn
+            class="justify-center"
+            style="min-width: 150px"
+            color="#7CB342"
+            dark
+            >Pagar</v-btn
+          >
         </v-card>
       </v-col>
     </v-row>
     <v-card class="pa-4 mb-3">
       <v-row>
         <v-col>
-          <v-carousel v-model="model" height="400">
+          <v-carousel height="400">
             <v-carousel-item v-for="img in images" :key="img">
               <img :src="img" width="700" />
             </v-carousel-item>
@@ -40,7 +52,8 @@
           aslkdhasjd
           <br />
           <h3>Precio:</h3>
-          aslkdhasjd
+          50.000 COP
+          <br />
         </v-col>
       </v-row>
     </v-card>
@@ -69,8 +82,8 @@ export default {
     id: 0,
     restaurantDetail: {},
     images: [
-      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80",
-      "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80",
+      "https://micasamirestauranteintegrador.s3.us-east-2.amazonaws.com/menu.jpg",
+      "https://micasamirestauranteintegrador.s3.us-east-2.amazonaws.com/menu2.jpg",
     ],
   }),
 };
