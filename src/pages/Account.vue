@@ -36,7 +36,7 @@
                 <v-list-item-title>Celular</v-list-item-title>
                 <v-list-item-subtitle>123456</v-list-item-subtitle>
               </v-list-item>
-              <v-list-item>
+              <v-list-item> 
                 <v-list-item-title>Tipo de Documento</v-list-item-title>
                 <v-list-item-subtitle>cc</v-list-item-subtitle>
               </v-list-item>
