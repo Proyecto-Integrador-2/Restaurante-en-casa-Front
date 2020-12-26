@@ -1,21 +1,21 @@
 <template>
   <div style="margin: auto" class="ma-3 mt-4">
-    <v-card max-width="90%" style="margin: auto">
+    <v-card max-width="80%" min-height="500" style="margin: auto">
       <v-card-title class="justify-center ma-3">Mi Cuenta</v-card-title>
       <v-tabs vertical>
-        <v-tab>
+        <v-tab class="ma-2">
           <v-icon left> mdi-account </v-icon>
           Mis datos
         </v-tab>
-        <v-tab>
+        <v-tab class="ma-2">
           <v-icon left> mdi-clock </v-icon>
           Mis pedidos
         </v-tab>
-        <v-tab>
+        <v-tab class="ma-2">
           <v-icon left>mdi-silverware-fork-knife</v-icon>
           Mi restaurante
         </v-tab>
-        <v-tab>
+        <v-tab class="ma-2">
           <v-icon left>mdi-flag</v-icon>
           FAQ
         </v-tab>

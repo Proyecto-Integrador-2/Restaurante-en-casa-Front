@@ -1,10 +1,10 @@
 <template>
-  <div style="margin:auto" class="ma-3">
+  <div style="margin:auto" class="ma-5">
       <v-row>
         <v-col>
-          <v-card class="ma-2 pa-2" height="500px">
+          <v-card class="pa-3" height="600px">
             <h1>Restaurantes</h1>
-            <v-list style="max-height: 430px" class="overflow-y-auto">
+            <v-list style="max-height: 530px" class="overflow-y-auto">
               <v-list-item-group color="primary">
                 <v-list-item
                   :key="i.id"
@@ -31,12 +31,12 @@
           </v-card>
         </v-col>
 
-        <v-col cols="12" xl="11" lg="9" sm="7">
+        <v-col cols="11" xl="8" lg="7" sm="6">
           <GmapMap
             :center="center"
             :zoom="13"
             map-type-id="roadmap"
-            style="max-width: 1400px; height: 500px"
+            style="max-width: 1400px; height: 600px"
           >
             <GmapMarker
               :key="i.id"
