@@ -22,9 +22,6 @@
             <v-list-item-title @click="account">Mi Cuenta</v-list-item-title>
           </v-list-item>
           <v-list-item @click="() => {}">
-            <v-list-item-title>Mi Restaurante</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="() => {}">
             <v-list-item-title @click="logout">Cerrar Sesión</v-list-item-title>
           </v-list-item>
         </v-list>

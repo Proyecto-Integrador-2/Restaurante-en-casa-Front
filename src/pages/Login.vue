@@ -61,6 +61,7 @@ export default {
         } catch (error) {
           console.log("Fallo el Login");
           console.log(error);
+          alert("Usuario o contraseña incorrectos");
         }
       } else {
         console.log("No hay nada escrito");

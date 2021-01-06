@@ -11,6 +11,9 @@ export default {
     getRestaurantById(id) {
         return api().get(`restaurant/${id}`)
     },
+    getRestaurantByUser() {
+        return api().get('restaurantuser', {headers: {'Authorization': token}})
+    },
     postRestaurant(data) {
         return api().post('restaurant', data, {headers: {'Authorization': token}})
     }

@@ -45,7 +45,6 @@
 
         <v-col>
           <h3>Descripción:</h3>
-          <br />
           blablabla blablabla
           <br />
           <h3>Tipo de comida:</h3>
