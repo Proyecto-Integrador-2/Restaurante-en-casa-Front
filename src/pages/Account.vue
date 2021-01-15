@@ -174,27 +174,31 @@ export default {
     menuPrice: "",
   }),
   async beforeCreate() {
-    // try {
+
     let user = await Account.getUser();
-    this.name = user.data.name;
-    this.email = user.data.mail;
-    this.phone = user.data.number;
-    this.documentType = user.data.documentType;
-    this.documentNumber = user.data.nrDocument;
-    this.flag = user.data.isChef;
-    if (this.flag == true) {
-      let restaurant = await RestaurantServices.getRestaurantByUser();
-      console.log(restaurant);
-      this.restaurantName = restaurant.data.name;
-      this.restaurantAddress = restaurant.data.address;
-      this.restaurantDescription = restaurant.data.description;
-      // if (this.flagMenu == true) {
-      // }
-    }
-    // } catch (error) {
-    //   console.log(error);
-    //   console.log("Error retornando usuario");
-    // }
+    if (user.status != 200) {
+      localStorage.removeItem("token");
+      console.log("No ha iniciado sesión");
+      alert("No ha iniciado sesión");
+      this.$router.push({ name: "Login" });
+    } else {
+      this.name = user.data.name;
+      this.email = user.data.mail;
+      this.phone = user.data.number;
+      this.documentType = user.data.documentType;
+      this.documentNumber = user.data.nrDocument;
+      this.flag = user.data.isChef;
+      if (this.flag == true) {
+        let restaurant = await RestaurantServices.getRestaurantByUser();
+        this.restaurantName = restaurant.data.name;
+        this.restaurantAddress = restaurant.data.address;
+        this.restaurantDescription = restaurant.data.description;
+        // if (this.flagMenu == true) {
+        // }
+      }
+      }
+
+    
   },
   methods: {
     registerRestaurantView() {

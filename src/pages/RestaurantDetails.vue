@@ -47,7 +47,7 @@
           <h3>Descripción:</h3>
           blablabla blablabla
           <br />
-          <h3>Tipo de comida:</h3>
+          <h3>Ingredientes:</h3>
           aslkdhasjd
           <br />
           <h3>Precio:</h3>
