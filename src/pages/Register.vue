@@ -44,11 +44,11 @@
           class="justify-center"
           style="max-width: 300px"
           @click="register"
-          color="orange accent-2"
+          color="#7CB342"
           dark
           large
           align-center
-          >Submit</v-btn
+          >Registrar</v-btn
         >
       </v-container>
     </v-card>

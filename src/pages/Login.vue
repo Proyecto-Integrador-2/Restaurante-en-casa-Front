@@ -18,7 +18,7 @@
           color="#7CB342"
           @click="submit"
           dark
-          >Submit</v-btn
+          >Ingresar</v-btn
         >
         <p></p>
         
@@ -26,7 +26,7 @@
           class="justify-center"
           style="min-width: 150px"
           @click="register"
-          >Register</v-btn
+          >Registrar</v-btn
         >
       </v-container>
     </v-card>
@@ -61,6 +61,7 @@ export default {
         } catch (error) {
           console.log("Fallo el Login");
           console.log(error);
+          alert("Usuario o contraseña incorrectos");
         }
       } else {
         console.log("No hay nada escrito");
