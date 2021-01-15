@@ -90,36 +90,56 @@
             <v-list>
               <v-list-item>
                 <v-list-item-title>Nombre del restaurante</v-list-item-title>
-                <v-list-item-subtitle>{{
-                  this.restaurantName
-                }}</v-list-item-subtitle>
+                <v-list-item-subtitle>
+                  {{ this.restaurantName }}
+                </v-list-item-subtitle>
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Dirección</v-list-item-title>
-                <v-list-item-subtitle>{{
-                  this.restaurantAddress
-                }}</v-list-item-subtitle>
+                <v-list-item-subtitle>
+                  {{ this.restaurantAddress }}
+                </v-list-item-subtitle>
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>Descripción</v-list-item-title>
-                <v-list-item-subtitle>{{
-                  this.restaurantDescription
-                }}</v-list-item-subtitle>
+                <v-list-item-subtitle>
+                  {{ this.restaurantDescription }}
+                </v-list-item-subtitle>
               </v-list-item>
               <v-divider></v-divider>
               <v-card-title class="justify-center">Menú diario</v-card-title>
-              <div v-if="flag == false">
+              <div v-if="flagMenu == true">
                 <v-list-item>
                   <v-list-item-title>Descripción</v-list-item-title>
-                  <v-list-item-subtitle>11111111</v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    {{ this.menuDescription }}
+                  </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>Ingredientes</v-list-item-title>
-                  <v-list-item-subtitle>11111111</v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    {{ this.menuIngredientes }}
+                  </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>Precio</v-list-item-title>
-                  <v-list-item-subtitle>11111111</v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    {{ this.menuPrice }}
+                  </v-list-item-subtitle>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-title>Imagenes</v-list-item-title>
+                  <v-list-item-subtitle>
+                    <img :src="this.menuImage" alt="">
+                  </v-list-item-subtitle>
+                </v-list-item>
+                <v-list-item>
+                  <v-btn
+                    class="justify-center"
+                    style="min-width: 150px"
+                    @click="registerMenu"
+                    >Cambiar menú</v-btn
+                  >
                 </v-list-item>
               </div>
               <div v-else>
@@ -148,6 +168,7 @@
 <script>
 import Account from "../services/account.services";
 import RestaurantServices from "../services/restaurants.services";
+import Menu from "../services/menu.services";
 
 export default {
   name: "Account",
@@ -172,13 +193,12 @@ export default {
     menuDescription: "",
     menuIngredientes: "",
     menuPrice: "",
+    menuImage: "",
   }),
   async beforeCreate() {
-
     let user = await Account.getUser();
     if (user.status != 200) {
       localStorage.removeItem("token");
-      console.log("No ha iniciado sesión");
       alert("No ha iniciado sesión");
       this.$router.push({ name: "Login" });
     } else {
@@ -193,12 +213,18 @@ export default {
         this.restaurantName = restaurant.data.name;
         this.restaurantAddress = restaurant.data.address;
         this.restaurantDescription = restaurant.data.description;
-        // if (this.flagMenu == true) {
-        // }
+        console.log(restaurant.data);
+        if (restaurant.data.dayMenu != null) {
+          this.flagMenu = true;
+          let response = await Menu.getMenu();
+          console.log(response.data);
+          this.menuDescription = response.data.info.description;
+          this.menuIngredientes = response.data.info.ingredients;
+          this.menuPrice = response.data.info.price;
+          this.menuImage = response.data.images[0].photo;
+        }
       }
-      }
-
-    
+    }
   },
   methods: {
     registerRestaurantView() {

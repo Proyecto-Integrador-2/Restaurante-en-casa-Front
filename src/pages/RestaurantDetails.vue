@@ -21,10 +21,10 @@
           <h1>Reservar</h1>
           <br />
           <h3>Total a pagar:</h3>
-          50.000 COP
+          {{this.menu.price}} COP
           <br />
           <v-btn
-            class="justify-center"
+            class="justify-center mt-4 mb-4"
             style="min-width: 150px"
             color="#7CB342"
             dark
@@ -37,21 +37,21 @@
       <v-row>
         <v-col>
           <v-carousel height="400">
-            <v-carousel-item v-for="img in images" :key="img">
-              <img :src="img" width="700" />
+            <v-carousel-item v-for="img in images" :key="img.id">
+              <img :src="img.photo" width="700" />
             </v-carousel-item>
           </v-carousel>
         </v-col>
 
         <v-col>
           <h3>Descripción:</h3>
-          blablabla blablabla
+          {{this.menu.description}}
           <br />
           <h3>Ingredientes:</h3>
-          aslkdhasjd
+          {{this.menu.ingredients}}
           <br />
           <h3>Precio:</h3>
-          50.000 COP
+          {{this.menu.price}} COP
           <br />
         </v-col>
       </v-row>
@@ -69,8 +69,13 @@ export default {
   async created() {
     this.id = this.$route.params.id;
     try {
-      let items = await restaurantServices.getRestaurantById(this.id);
-      this.restaurantDetail = items.data;
+      let response = await restaurantServices.getRestaurantById(this.id);
+      this.restaurantDetail = response.data.restaurant;
+      if(response.data.menu!=null){
+        this.menu = response.data.menu.info;
+        this.images = response.data.menu.images;
+        console.log(this.images);
+      }
     } catch (error) {
       console.log("Fallo retornando el restaurante");
       console.log(error);
@@ -80,6 +85,7 @@ export default {
   data: () => ({
     id: 0,
     restaurantDetail: {},
+    menu: {},
     images: [
       "https://micasamirestauranteintegrador.s3.us-east-2.amazonaws.com/menu.jpg",
       "https://micasamirestauranteintegrador.s3.us-east-2.amazonaws.com/menu2.jpg",

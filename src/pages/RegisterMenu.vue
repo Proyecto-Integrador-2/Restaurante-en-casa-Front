@@ -6,7 +6,7 @@
         <p>Descripción</p>
         <v-text-field v-model="description" label="" outlined></v-text-field>
         <p>Ingredientes</p>
-        <v-text-field v-model="ingretients" label="" outlined></v-text-field>
+        <v-text-field v-model="ingredients" label="" outlined></v-text-field>
         <p>Precio</p>
         <v-text-field v-model="price" label="" outlined></v-text-field>
 
@@ -36,6 +36,7 @@
 
 <script>
 import Images from "../services/images.services";
+import Menu from "../services/menu.services";
 
 export default {
   name: "RegisterMenu",
@@ -44,7 +45,7 @@ export default {
       file: "",
       fileUrl: "",
       description: "",
-      ingretients: "",
+      ingredients: "",
       price: "",
     };
   },
@@ -56,12 +57,31 @@ export default {
       try {
         let response = await Images.postImage(fd);
         console.log(response);
+        this.fileUrl = response.data;
       } catch (error) {
         console.log("Error guardando imagen");
       }
     },
-    register() {
-      console.log("Registradooooo");
+    async register() {
+      if (this.description != "" && this.ingredients != "" && this.price != "" && this.fileUrl != "") {
+        let params = {
+          description: this.description,
+          ingredients: this.ingredients,
+          price: this.price,
+          images: [this.fileUrl],
+        };
+        console.log(params);
+        try {
+          let response = await Menu.postMenu(params);
+          console.log(response);
+          alert("Se ha creado el menu correctamente");
+          this.$router.push({ name: "Account" });
+        } catch (error) {
+          console.log("Error registrando menu");
+        }
+      } else {
+        alert("Complete todos los campos")
+      }
     },
   },
 };
