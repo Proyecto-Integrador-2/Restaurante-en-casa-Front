@@ -124,13 +124,13 @@
                 <v-list-item>
                   <v-list-item-title>Precio</v-list-item-title>
                   <v-list-item-subtitle>
-                    {{ this.menuPrice }}
+                    $ {{ formatPrice(this.menuPrice) }} COP
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>Imagenes</v-list-item-title>
                   <v-list-item-subtitle>
-                    <img :src="this.menuImage" alt="">
+                    <img width="350px" :src="this.menuImage" alt="" />
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-list-item>
@@ -158,6 +158,23 @@
                 </v-list-item>
               </div>
             </v-list>
+          </v-card>
+        </v-tab-item>
+        <!-- FAQ -->
+        <v-tab-item>
+          <v-card-title class="justify-center">Preguntas Frecuentes</v-card-title>
+          <v-card flat>
+            <v-card-text>
+              <p>Pregunta 1</p>
+
+              <p>Pregunta 2</p>
+
+              <p>Pregunta 3</p>
+
+              <p>Pregunta 4</p>
+
+              <p class="mb-0">Pregunta 5</p>
+            </v-card-text>
           </v-card>
         </v-tab-item>
       </v-tabs>
@@ -196,34 +213,53 @@ export default {
     menuImage: "",
   }),
   async beforeCreate() {
-    let user = await Account.getUser();
-    if (user.status != 200) {
-      localStorage.removeItem("token");
-      alert("No ha iniciado sesión");
-      this.$router.push({ name: "Login" });
-    } else {
-      this.name = user.data.name;
-      this.email = user.data.mail;
-      this.phone = user.data.number;
-      this.documentType = user.data.documentType;
-      this.documentNumber = user.data.nrDocument;
-      this.flag = user.data.isChef;
-      if (this.flag == true) {
-        let restaurant = await RestaurantServices.getRestaurantByUser();
-        this.restaurantName = restaurant.data.name;
-        this.restaurantAddress = restaurant.data.address;
-        this.restaurantDescription = restaurant.data.description;
-        console.log(restaurant.data);
-        if (restaurant.data.dayMenu != null) {
-          this.flagMenu = true;
-          let response = await Menu.getMenu();
-          console.log(response.data);
-          this.menuDescription = response.data.info.description;
-          this.menuIngredientes = response.data.info.ingredients;
-          this.menuPrice = response.data.info.price;
-          this.menuImage = response.data.images[0].photo;
+    try {
+      let user = await Account.getUser();
+      if (user.status != 200) {
+        localStorage.removeItem("token");
+        alert("No ha iniciado sesión");
+        this.$router.push({ name: "Login" });
+      } else {
+        this.name = user.data.name;
+        this.email = user.data.mail;
+        this.phone = user.data.number;
+        if (user.data.documentType == 0) {
+          this.documentType = "Tarjeta de Identidad";
+        }
+        if (user.data.documentType == 1) {
+          this.documentType = "Cédula de Ciudadania";
+        }
+        if (user.data.documentType == 2) {
+          this.documentType = "Cédula de Extrangeria";
+        }
+        if (user.data.documentType == 3) {
+          this.documentType = "Pasaporte";
+        }
+        this.documentNumber = user.data.nrDocument;
+        this.flag = user.data.isChef;
+        if (this.flag == true) {
+          try {
+            let restaurant = await RestaurantServices.getRestaurantByUser();
+            this.restaurantName = restaurant.data.name;
+            this.restaurantAddress = restaurant.data.address;
+            this.restaurantDescription = restaurant.data.description;
+            if (restaurant.data.dayMenu != null) {
+              this.flagMenu = true;
+              let response = await Menu.getMenu();
+              this.menuDescription = response.data.info.description;
+              this.menuIngredientes = response.data.info.ingredients;
+              this.menuPrice = response.data.info.price;
+              this.menuImage = response.data.images[0].photo;
+            }
+          } catch (error) {
+            console.log(error);
+          }
         }
       }
+    } catch (error) {
+      alert("No ha iniciado sesión");
+      localStorage.removeItem("token");
+      this.$router.push({ name: "Login" });
     }
   },
   methods: {
@@ -232,6 +268,10 @@ export default {
     },
     registerMenu() {
       this.$router.push({ name: "RegisterMenu" });
+    },
+    formatPrice(value) {
+      let val = (value / 1).toFixed(2).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
   },
 };

@@ -56,10 +56,10 @@ export default {
       fd.append("image", this.file);
       try {
         let response = await Images.postImage(fd);
-        console.log(response);
         this.fileUrl = response.data;
       } catch (error) {
         console.log("Error guardando imagen");
+        alert("Error guardando imagen");
       }
     },
     async register() {
@@ -70,10 +70,8 @@ export default {
           price: this.price,
           images: [this.fileUrl],
         };
-        console.log(params);
         try {
-          let response = await Menu.postMenu(params);
-          console.log(response);
+          await Menu.postMenu(params);
           alert("Se ha creado el menu correctamente");
           this.$router.push({ name: "Account" });
         } catch (error) {

@@ -82,7 +82,7 @@ export default {
       let items = await restaurantServices.getRestaurants();
       this.restaurantsList = items.data;
     } catch (error) {
-      console.log("Fallo retornando restaurantes");
+      console.log(error)
     }
   },
 

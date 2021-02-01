@@ -1,6 +1,6 @@
 import api from './api'
 
-const token = localStorage.token;
+const token = localStorage.getItem("token");
 
 export default {
     

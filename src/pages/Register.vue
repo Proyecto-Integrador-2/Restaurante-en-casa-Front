@@ -19,25 +19,26 @@
           type="number"
           outlined
         ></v-text-field>
-        <v-combobox
+        <v-select
           v-model="documentType"
           :items="items"
           label="Tipo de Documento"
-          type="number"
+          type="text"
           outlined
-          allowCustom="False"
-        ></v-combobox>
+          return-object
+        ></v-select>
         <v-text-field
           v-model="nrDocument"
           label="Número de Documento"
           type="number"
           outlined
         ></v-text-field>
-        <v-text-field v-model="password" label="Contraseña" outlined></v-text-field>
         <v-text-field
-          label="Repita la Contraseña"
+          v-model="password"
+          label="Contraseña"
           outlined
         ></v-text-field>
+        <v-text-field label="Repita la Contraseña" outlined></v-text-field>
       </v-container>
       <v-container class="d-flex flex-column ma-3" align-center>
         <v-btn
@@ -64,7 +65,7 @@ export default {
       name: "",
       mail: "",
       number: "",
-      documentType: "0",
+      documentType: "",
       nrDocument: "",
       password: "",
       items: [
@@ -76,24 +77,32 @@ export default {
     };
   },
   methods: {
-    async register () {
+    async register() {
       try {
-          let params = {
-          name: this.name,
-           mail: this.mail, 
-           number: this.number, 
-           documentType: this.documentType, 
-           nrDocument: this.nrDocument, 
-           password: this.password};
-          let response = await loginServices.postUser(params);
-          console.log(response);
-          alert("Se ha creado el usuario correctamente");
-          this.$router.push({ name: "Login" });
-        } catch (error) {
-          console.log("Fallo el registro");
-          console.log(error);
+        if (this.documentType == "Cédula de Ciudadania") {
+          this.documentType = 1
         }
-    }
-  }
+        if (this.documentType == "Cédula de Extrangeria") {
+          this.documentType = 2
+        }
+        if (this.documentType == "Pasaporte") {
+          this.documentType = 3
+        }
+        let params = {
+          name: this.name,
+          mail: this.mail,
+          number: this.number,
+          documentType: this.documentType,
+          nrDocument: this.nrDocument,
+          password: this.password,
+        };
+        await loginServices.postUser(params);
+        alert("Se ha creado el usuario correctamente");
+        this.$router.push({ name: "Login" });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>

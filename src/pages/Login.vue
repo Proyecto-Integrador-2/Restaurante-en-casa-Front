@@ -21,11 +21,8 @@
           >Ingresar</v-btn
         >
         <p></p>
-        
-        <v-btn
-          class="justify-center"
-          style="min-width: 150px"
-          @click="register"
+
+        <v-btn class="justify-center" style="min-width: 150px" @click="register"
           >Registrar</v-btn
         >
       </v-container>
@@ -34,16 +31,15 @@
 </template>
 
 <script>
-
 import loginServices from "../services/login.services";
 
 export default {
   name: "Login",
   data() {
     return {
-      email:"",
-      password:"",
-      token:""
+      email: "",
+      password: "",
+      token: "",
     };
   },
   methods: {
@@ -51,22 +47,20 @@ export default {
       this.$router.push({ name: "Register" });
     },
     async submit() {
-      if(this.email!="" && this.password!=""){
+      if (this.email != "" && this.password != "") {
+        localStorage.removeItem("token");
         try {
-          let params = {mail: this.email, password: this.password};
+          let params = { mail: this.email, password: this.password };
           let response = await loginServices.postLogin(params);
-          console.log(response);
-          localStorage.setItem('token',response.data);
+          localStorage.setItem("token", response.data);
           this.$router.push({ name: "Restaurants" });
         } catch (error) {
-          console.log("Fallo el Login");
-          console.log(error);
           alert("Usuario o contraseña incorrectos");
         }
       } else {
-        console.log("No hay nada escrito");
+        alert("No hay nada escrito");
       }
-    }
+    },
   },
 };
 </script>

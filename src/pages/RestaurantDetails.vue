@@ -2,10 +2,10 @@
   <div id="mainDiv">
     <v-row>
       <v-col>
-        <v-card class="pa-4">
+        <v-card class="pa-4" min-height="230px">
           <v-col>
             <h1>{{ this.restaurantDetail.name }}</h1>
-            <br>
+            <br />
             <h3 style="font-weight: normal">
               {{ this.restaurantDetail.description }}
             </h3>
@@ -17,11 +17,11 @@
         </v-card>
       </v-col>
       <v-col>
-        <v-card class="pa-4">
+        <v-card class="pa-4" min-height="230px">
           <h1>Reservar</h1>
           <br />
           <h3>Total a pagar:</h3>
-          {{this.menu.price}} COP
+          $ {{ formatPrice(this.menu.price) }} COP
           <br />
           <v-btn
             class="justify-center mt-4 mb-4"
@@ -45,13 +45,13 @@
 
         <v-col>
           <h3>Descripción:</h3>
-          {{this.menu.description}}
+          {{ this.menu.description }}
           <br />
           <h3>Ingredientes:</h3>
-          {{this.menu.ingredients}}
+          {{ this.menu.ingredients }}
           <br />
           <h3>Precio:</h3>
-          {{this.menu.price}} COP
+          $ {{ formatPrice(this.menu.price) }} COP
           <br />
         </v-col>
       </v-row>
@@ -71,13 +71,11 @@ export default {
     try {
       let response = await restaurantServices.getRestaurantById(this.id);
       this.restaurantDetail = response.data.restaurant;
-      if(response.data.menu!=null){
+      if (response.data.menu != null) {
         this.menu = response.data.menu.info;
         this.images = response.data.menu.images;
-        console.log(this.images);
       }
     } catch (error) {
-      console.log("Fallo retornando el restaurante");
       console.log(error);
     }
   },
@@ -91,6 +89,13 @@ export default {
       "https://micasamirestauranteintegrador.s3.us-east-2.amazonaws.com/menu2.jpg",
     ],
   }),
+
+  methods: {
+    formatPrice(value) {
+      let val = (value / 1).toFixed(2).replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
+  },
 };
 </script>
 

@@ -5,45 +5,49 @@
         >Registro de restaurante</v-card-title
       >
       <v-container class="d-flex justify-center flex-column">
-        <v-text-field
-          v-model="name"
-          label="Nombre de Restaurante"
-          outlined
-        ></v-text-field>
-        <v-text-field
-          v-model="description"
-          label="Descripción"
-          outlined
-        ></v-text-field>
-        <v-text-field
-          v-model="address"
-          label="Dirección"
-          outlined
-        ></v-text-field>
-
-        <GmapMap
-          :center="center"
-          :zoom="13"
-          map-type-id="roadmap"
-          style="max-width: 1400px; height: 500px"
-        >
-          <GmapMarker
-            :key="i.id"
-            v-for="i in restaurantsList"
-            :position="i.position"
-            :clickable="true"
-            :draggable="false"
-            @click="toggleInfoWindow(i, i.id)"
-          />
-          <Gmap-info-window
-            :options="infoOptions"
-            :position="infoWindowPos"
-            :opened="infoWinOpen"
-            @closeclick="infoWinOpen = false"
+        <div>
+          <v-text-field
+            v-model="name"
+            label="Nombre de Restaurante"
+            outlined
+          ></v-text-field>
+          <v-text-field
+            v-model="description"
+            label="Descripción"
+            outlined
+          ></v-text-field>
+          <v-text-field
+            v-model="address"
+            label="Dirección"
+            outlined
+          ></v-text-field>
+        </div>
+        <div>
+          <v-card-subtitle class="justify-center">
+            Porfavor arrastre el apuntador a la dirección de su restaurante
+          </v-card-subtitle>
+          <GmapMap
+            :center="center"
+            :zoom="13"
+            map-type-id="roadmap"
+            style="max-width: 1400px; height: 500px"
           >
-            <div v-html="infoContent"></div>
-          </Gmap-info-window>
-        </GmapMap>
+            <GmapMarker
+              :position="center"
+              :clickable="true"
+              :draggable="true"
+              @drag="updateCoordinates($event.latLng)"
+            />
+            <Gmap-info-window
+              :options="infoOptions"
+              :position="infoWindowPos"
+              :opened="infoWinOpen"
+              @closeclick="infoWinOpen = false"
+            >
+              <div v-html="infoContent"></div>
+            </Gmap-info-window>
+          </GmapMap>
+        </div>
       </v-container>
       <v-container class="d-flex flex-column ma-3" align-center>
         <v-btn
@@ -62,10 +66,36 @@
 </template>
 
 <script>
+import Restaurants from "../services/restaurants.services";
+
 export default {
   name: "RegisterRestaurant",
   methods: {
-    registerRestaurant() {},
+    async registerRestaurant() {
+      if(this.name!='' && this.description!='' && this.address!=''){
+        let params = {
+          name: this.name,
+          description: this.description,
+          address: this.address,
+          lat: this.restauranCoordinates.lat,
+          lng: this.restauranCoordinates.lng,
+        };
+        try {
+          await Restaurants.postRestaurant(params);
+          this.$router.push({ name: "Restaurants" });
+        } catch (error) {
+          console.log(error)
+        }
+        
+      }
+
+    },
+    updateCoordinates(location) {
+      this.restauranCoordinates = {
+        lat: location.lat(),
+        lng: location.lng(),
+      };
+    },
     toggleInfoWindow: function (i, id) {
       this.infoWindowPos = i.position;
       this.infoContent = this.getInfoWindowContent(i);
@@ -99,6 +129,9 @@ export default {
     },
   },
   data: () => ({
+    name: "",
+    description: "",
+    address: "",
     infoWindow: {
       position: { lat: 0, lng: 0 },
       open: false,
@@ -119,6 +152,7 @@ export default {
       },
     },
     center: { lat: 6.158707, lng: -75.5887989 },
+    restauranCoordinates: { lat: 6.158707, lng: -75.5887989 },
     restaurantsList: [],
   }),
 };
